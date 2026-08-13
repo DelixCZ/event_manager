@@ -1,0 +1,52 @@
+<% content_for :title, "#{@event.title} — Event Manager" %>
+
+<article class="card event-detail">
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Organized by <%= @event.organizer.name %></p>
+      <h1><%= @event.title %></h1>
+      <p class="meta">
+        <%= date_range(@event) %>
+        <% if @event.location.present? %>
+          · <%= @event.location %>
+        <% end %>
+      </p>
+    </div>
+    <div class="button-row">
+      <%= link_to "Edit", edit_event_path(@event), class: "button button--ghost" %>
+      <%= button_to "Delete", @event, method: :delete, class: "button button--danger",
+            data: { turbo_confirm: "Delete this event and all of its attendees?" } %>
+    </div>
+  </section>
+
+  <% if @event.description.present? %>
+    <p class="description"><%= @event.description %></p>
+  <% end %>
+</article>
+
+<section class="card attendees-section">
+  <h2>Attendees <span class="count"><%= @attendees.size %></span></h2>
+
+  <% if @attendees.any? %>
+    <ul class="attendee-list">
+      <% @attendees.each do |attendee| %>
+        <li class="attendee-row">
+          <div>
+            <strong><%= attendee.name %></strong>
+            <span class="meta"><%= attendee.email %></span>
+          </div>
+          <%= button_to "Remove", event_attendee_path(@event, attendee), method: :delete,
+                class: "button button--ghost button--small",
+                data: { turbo_confirm: "Remove #{attendee.name} from this event?" } %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="empty-state">No attendees registered yet.</p>
+  <% end %>
+
+  <h3>Add attendee</h3>
+  <%= render "attendees/form", event: @event, attendee: @attendee %>
+</section>
+
+<p class="back-link"><%= link_to "← All events", events_path %></p>

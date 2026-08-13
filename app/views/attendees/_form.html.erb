@@ -1,0 +1,25 @@
+<%= form_with model: [event, attendee], class: "stack-form attendee-form" do |form| %>
+  <% if attendee.errors.any? %>
+    <div class="form-errors" role="alert">
+      <h2><%= pluralize(attendee.errors.count, "error") %> prevented this attendee from being added:</h2>
+      <ul>
+        <% attendee.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field-row">
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :email %>
+      <%= form.email_field :email, required: true %>
+    </div>
+  </div>
+
+  <%= form.submit "Add attendee", class: "button" %>
+<% end %>

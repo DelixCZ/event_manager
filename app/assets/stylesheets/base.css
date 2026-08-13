@@ -1,0 +1,76 @@
+:root {
+  --bg: #f4f1ea;
+  --surface: #fffcf7;
+  --ink: #1f1b16;
+  --muted: #6b635a;
+  --line: #e4ddd3;
+  --accent: #1f6f5b;
+  --accent-hover: #185847;
+  --danger: #9b2c2c;
+  --danger-hover: #7f1d1d;
+  --notice-bg: #e7f3ee;
+  --notice-ink: #185847;
+  --alert-bg: #fdecec;
+  --alert-ink: #9b2c2c;
+  --shadow: 0 1px 2px rgba(31, 27, 22, 0.06), 0 8px 24px rgba(31, 27, 22, 0.06);
+  --radius: 12px;
+  --font: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.2rem;
+}
+
+h3 {
+  font-size: 1rem;
+  margin-top: 1.5rem;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

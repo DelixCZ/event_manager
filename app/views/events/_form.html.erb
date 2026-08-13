@@ -1,0 +1,48 @@
+<%= form_with model: event, class: "stack-form" do |form| %>
+  <% if event.errors.any? %>
+    <div class="form-errors" role="alert">
+      <h2><%= pluralize(event.errors.count, "error") %> prevented this event from being saved:</h2>
+      <ul>
+        <% event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <%= form.label :start_date %>
+      <%= form.date_field :start_date, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :end_date %>
+      <%= form.date_field :end_date, required: true %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= form.label :organizer_id, "Organizer" %>
+    <%= form.collection_select :organizer_id, Organizer.order(:name), :id, :name, { prompt: "Select an organizer" }, required: true %>
+  </div>
+
+  <div class="button-row">
+    <%= form.submit class: "button" %>
+    <%= link_to "Cancel", event.persisted? ? event : events_path, class: "button button--ghost" %>
+  </div>
+<% end %>

@@ -1,0 +1,9 @@
+<% content_for :title, "Edit #{@event.title} — Event Manager" %>
+
+<section class="page-header">
+  <h1>Edit Event</h1>
+</section>
+
+<div class="card form-card">
+  <%= render "form", event: @event %>
+</div>

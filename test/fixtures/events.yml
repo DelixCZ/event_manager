@@ -1,0 +1,15 @@
+summit:
+  title: North Sea Product Summit
+  description: A two-day gathering for product leaders.
+  location: Oslo
+  start_date: 2026-09-14
+  end_date: 2026-09-16
+  organizer: maya
+
+workshop:
+  title: Community Ops Workshop
+  description: Hands-on workshop for community managers.
+  location: Prague
+  start_date: 2026-10-03
+  end_date: 2026-10-04
+  organizer: jonas

@@ -1,0 +1,110 @@
+.flash {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  margin-bottom: 1.25rem;
+}
+
+.flash--notice {
+  background: var(--notice-bg);
+  color: var(--notice-ink);
+}
+
+.flash--alert {
+  background: var(--alert-bg);
+  color: var(--alert-ink);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+}
+
+.event-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.event-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.event-card h2 {
+  margin-bottom: 0.25rem;
+}
+
+.event-card h2 a {
+  color: var(--ink);
+}
+
+.event-card .meta {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.event-card__actions,
+.button-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.event-detail .page-header {
+  margin-bottom: 0.75rem;
+}
+
+.description {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.attendees-section {
+  margin-top: 1.25rem;
+}
+
+.count {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.attendee-list {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.attendee-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.attendee-row:last-child {
+  border-bottom: 0;
+}
+
+.attendee-row .meta {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  margin: 1rem 0 0;
+}
+
+@media (max-width: 640px) {
+  .event-card,
+  .attendee-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

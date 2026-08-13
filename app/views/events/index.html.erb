@@ -1,0 +1,34 @@
+<% content_for :title, "Events — Event Manager" %>
+
+<section class="page-header">
+  <div>
+    <h1>Events</h1>
+    <p class="lede">Upcoming and past gatherings managed by organizers.</p>
+  </div>
+  <%= link_to "New Event", new_event_path, class: "button" %>
+</section>
+
+<% if @events.any? %>
+  <ul class="event-list">
+    <% @events.each do |event| %>
+      <li class="card event-card">
+        <div class="event-card__body">
+          <h2><%= link_to event.title, event %></h2>
+          <p class="meta">
+            <%= date_range(event) %>
+            <% if event.location.present? %>
+              · <%= event.location %>
+            <% end %>
+          </p>
+          <p class="meta">Organized by <%= event.organizer.name %></p>
+        </div>
+        <div class="event-card__actions">
+          <%= link_to "View", event, class: "button button--ghost button--small" %>
+          <%= link_to "Edit", edit_event_path(event), class: "button button--ghost button--small" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="empty-state">No events yet. <%= link_to "Create the first one", new_event_path %>.</p>
+<% end %>

@@ -1,0 +1,9 @@
+summit_elena:
+  event: summit
+  attendee: elena
+  status: confirmed
+
+summit_tomas:
+  event: summit
+  attendee: tomas
+  status: confirmed

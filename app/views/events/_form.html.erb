@@ -25,6 +25,11 @@
     <%= form.text_field :location %>
   </div>
 
+  <div class="field">
+    <%= form.label :capacity, "Capacity (seats)" %>
+    <%= form.number_field :capacity, min: 1, required: true %>
+  </div>
+
   <div class="field-row">
     <div class="field">
       <%= form.label :start_date %>
@@ -39,6 +44,7 @@
   <div class="field">
     <%= form.label :organizer_id, "Organizer" %>
     <%= form.collection_select :organizer_id, Organizer.order(:name), :id, :name, { prompt: "Select an organizer" }, required: true %>
+    <p class="field-hint"><%= link_to "Add a new organizer", new_organizer_path %></p>
   </div>
 
   <div class="button-row">

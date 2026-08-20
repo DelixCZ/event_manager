@@ -85,6 +85,15 @@ input[type="submit"]:hover {
   outline-offset: 1px;
 }
 
+.field-hint {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.field-hint a {
+  color: var(--accent);
+}
+
 .field-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

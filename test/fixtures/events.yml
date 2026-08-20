@@ -4,6 +4,7 @@ summit:
   location: Oslo
   start_date: 2026-09-14
   end_date: 2026-09-16
+  capacity: 10
   organizer: maya
 
 workshop:
@@ -12,4 +13,5 @@ workshop:
   location: Prague
   start_date: 2026-10-03
   end_date: 2026-10-04
+  capacity: 10
   organizer: jonas

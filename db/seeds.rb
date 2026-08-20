@@ -6,6 +6,26 @@ lumen = Organizer.find_or_create_by!(email: "jonas.berg@lumenstudio.io") do |org
   organizer.name = "Jonas Berg"
 end
 
+attendees = {
+  elena: [ "Elena Rossi", "elena.rossi@nordicmail.com" ],
+  tomas: [ "Tomáš Novák", "tomas.novak@example.cz" ],
+  priya: [ "Priya Shah", "priya.shah@brightline.dev" ],
+  sofia: [ "Sofia Almeida", "sofia.almeida@mail.pt" ],
+  lukas: [ "Lukas Weber", "lukas.weber@example.de" ],
+  amina: [ "Amina Diallo", "amina.diallo@example.com" ],
+  noah: [ "Noah Jensen", "noah.jensen@lumenstudio.io" ],
+  hana: [ "Hana Kim", "hana.kim@example.kr" ],
+  omar: [ "Omar Haddad", "omar.haddad@example.com" ],
+  clara: [ "Clara Moreau", "clara.moreau@example.fr" ],
+  mateo: [ "Mateo Silva", "mateo.silva@example.cl" ],
+  irene: [ "Irene Papadopoulos", "irene.papadopoulos@example.com" ],
+  yara: [ "Yara Nasser", "yara.nasser@example.com" ]
+}.transform_values do |name, email|
+  Attendee.find_or_create_by!(email: email) do |attendee|
+    attendee.name = name
+  end
+end
+
 events = [
   {
     organizer: horizon,
@@ -14,11 +34,8 @@ events = [
     location: "Oslo Spektrum, Oslo",
     start_date: Date.new(2026, 9, 14),
     end_date: Date.new(2026, 9, 16),
-    attendees: [
-      [ "Elena Rossi", "elena.rossi@nordicmail.com" ],
-      [ "Tomáš Novák", "tomas.novak@example.cz" ],
-      [ "Priya Shah", "priya.shah@brightline.dev" ]
-    ]
+    capacity: 4,
+    attendee_keys: [ :elena, :tomas, :priya, :sofia, :irene ]
   },
   {
     organizer: horizon,
@@ -27,10 +44,8 @@ events = [
     location: "Impact Hub, Prague",
     start_date: Date.new(2026, 10, 3),
     end_date: Date.new(2026, 10, 4),
-    attendees: [
-      [ "Sofia Almeida", "sofia.almeida@mail.pt" ],
-      [ "Lukas Weber", "lukas.weber@example.de" ]
-    ]
+    capacity: 10,
+    attendee_keys: [ :sofia, :lukas, :elena ]
   },
   {
     organizer: lumen,
@@ -39,12 +54,8 @@ events = [
     location: "Kulturhuset, Stockholm",
     start_date: Date.new(2026, 11, 9),
     end_date: Date.new(2026, 11, 11),
-    attendees: [
-      [ "Amina Diallo", "amina.diallo@example.com" ],
-      [ "Noah Jensen", "noah.jensen@lumenstudio.io" ],
-      [ "Hana Kim", "hana.kim@example.kr" ],
-      [ "Omar Haddad", "omar.haddad@example.com" ]
-    ]
+    capacity: 5,
+    attendee_keys: [ :amina, :noah, :hana, :omar, :priya, :yara ]
   },
   {
     organizer: lumen,
@@ -53,23 +64,19 @@ events = [
     location: "Kampnagel, Hamburg",
     start_date: Date.new(2026, 12, 4),
     end_date: Date.new(2026, 12, 5),
-    attendees: [
-      [ "Clara Moreau", "clara.moreau@example.fr" ],
-      [ "Mateo Silva", "mateo.silva@example.cl" ]
-    ]
+    capacity: 10,
+    attendee_keys: [ :clara, :mateo, :noah ]
   }
 ]
 
 events.each do |attrs|
   attrs = attrs.dup
-  attendee_rows = attrs.delete(:attendees)
-  event = Event.find_or_create_by!(title: attrs[:title], organizer: attrs[:organizer]) do |record|
-    record.assign_attributes(attrs)
-  end
+  attendee_keys = attrs.delete(:attendee_keys)
+  event = Event.find_or_initialize_by(title: attrs[:title], organizer: attrs[:organizer])
+  event.assign_attributes(attrs)
+  event.save!
 
-  attendee_rows.each do |name, email|
-    event.attendees.find_or_create_by!(email: email) do |attendee|
-      attendee.name = name
-    end
+  attendee_keys.each do |key|
+    Enrollment.find_or_create_by!(event: event, attendee: attendees[key])
   end
 end

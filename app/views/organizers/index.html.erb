@@ -1,0 +1,29 @@
+<% content_for :title, "Organizers — Event Manager" %>
+
+<section class="page-header">
+  <div>
+    <h1>Organizers</h1>
+    <p class="lede">People and groups who own events.</p>
+  </div>
+  <%= link_to "New Organizer", new_organizer_path, class: "button" %>
+</section>
+
+<% if @organizers.any? %>
+  <ul class="event-list">
+    <% @organizers.each do |organizer| %>
+      <li class="card event-card">
+        <div class="event-card__body">
+          <h2><%= link_to organizer.name, organizer %></h2>
+          <p class="meta"><%= organizer.email %></p>
+          <p class="meta"><%= pluralize(organizer.events.size, "event") %></p>
+        </div>
+        <div class="event-card__actions">
+          <%= link_to "View", organizer, class: "button button--ghost button--small" %>
+          <%= link_to "Edit", edit_organizer_path(organizer), class: "button button--ghost button--small" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="empty-state">No organizers yet. <%= link_to "Add the first one", new_organizer_path %>.</p>
+<% end %>

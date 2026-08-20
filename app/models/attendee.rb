@@ -1,6 +1,7 @@
 class Attendee < ApplicationRecord
-  belongs_to :event
+  has_many :enrollments, dependent: :destroy
+  has_many :events, through: :enrollments
 
   validates :name, presence: true
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 end

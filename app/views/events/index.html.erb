@@ -5,7 +5,6 @@
     <h1>Events</h1>
     <p class="lede">Upcoming and past gatherings managed by organizers.</p>
   </div>
-  <%= link_to "New Event", new_event_path, class: "button" %>
 </section>
 
 <% if @events.any? %>
@@ -21,6 +20,7 @@
             <% end %>
           </p>
           <p class="meta">Organized by <%= event.organizer.name %></p>
+          <p class="meta <%= "seat-status--full" if event.full? %>"><%= seat_availability(event) %></p>
         </div>
         <div class="event-card__actions">
           <%= link_to "View", event, class: "button button--ghost button--small" %>

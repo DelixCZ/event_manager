@@ -1,0 +1,27 @@
+<%= form_with model: organizer, class: "stack-form" do |form| %>
+  <% if organizer.errors.any? %>
+    <div class="form-errors" role="alert">
+      <h2><%= pluralize(organizer.errors.count, "error") %> prevented this organizer from being saved:</h2>
+      <ul>
+        <% organizer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true %>
+  </div>
+
+  <div class="button-row">
+    <%= form.submit class: "button" %>
+    <%= link_to "Cancel", organizer.persisted? ? organizer : organizers_path, class: "button button--ghost" %>
+  </div>
+<% end %>

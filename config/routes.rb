@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  resources :organizers
   resources :events do
-    resources :attendees, only: %i[create destroy]
+    resources :enrollments, only: %i[create destroy]
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -1,0 +1,9 @@
+<% content_for :title, "Edit #{@organizer.name} — Event Manager" %>
+
+<section class="page-header">
+  <h1>Edit Organizer</h1>
+</section>
+
+<div class="card form-card">
+  <%= render "form", organizer: @organizer %>
+</div>

@@ -1,0 +1,44 @@
+<% content_for :title, "#{@organizer.name} — Event Manager" %>
+
+<article class="card event-detail">
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Organizer</p>
+      <h1><%= @organizer.name %></h1>
+      <p class="meta"><%= @organizer.email %></p>
+    </div>
+    <div class="button-row">
+      <%= link_to "New Event", new_event_path(organizer_id: @organizer.id), class: "button" %>
+      <%= link_to "Edit", edit_organizer_path(@organizer), class: "button button--ghost" %>
+      <%= button_to "Delete", @organizer, method: :delete, class: "button button--danger",
+            data: { turbo_confirm: "Delete this organizer and all of their events?" } %>
+    </div>
+  </section>
+</article>
+
+<section class="card attendees-section">
+  <h2>Events <span class="count"><%= @events.size %></span></h2>
+
+  <% if @events.any? %>
+    <ul class="event-list">
+      <% @events.each do |event| %>
+        <li class="attendee-row">
+          <div>
+            <strong><%= link_to event.title, event %></strong>
+            <span class="meta">
+              <%= date_range(event) %>
+              <% if event.location.present? %>
+                · <%= event.location %>
+              <% end %>
+            </span>
+          </div>
+          <%= link_to "View", event, class: "button button--ghost button--small" %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="empty-state">No events yet. <%= link_to "Create one", new_event_path(organizer_id: @organizer.id) %>.</p>
+  <% end %>
+</section>
+
+<p class="back-link"><%= link_to "← All organizers", organizers_path %></p>

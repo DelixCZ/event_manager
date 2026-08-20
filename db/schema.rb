@@ -10,17 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_13_170002) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_20_170500) do
   create_table "attendees", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
-    t.bigint "event_id", null: false
     t.string "name", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_attendees_on_event_id"
+    t.index ["email"], name: "index_attendees_on_email", unique: true
+  end
+
+  create_table "enrollments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "attendee_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "event_id", null: false
+    t.string "status", default: "confirmed", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "waitlisted_at"
+    t.index ["attendee_id"], name: "index_enrollments_on_attendee_id"
+    t.index ["event_id", "attendee_id"], name: "index_enrollments_on_event_id_and_attendee_id", unique: true
+    t.index ["event_id"], name: "index_enrollments_on_event_id"
+    t.index ["status"], name: "index_enrollments_on_status"
+    t.index ["waitlisted_at"], name: "index_enrollments_on_waitlisted_at"
   end
 
   create_table "events", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "capacity", default: 10, null: false
     t.datetime "created_at", null: false
     t.text "description"
     t.date "end_date", null: false
@@ -40,6 +54,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_13_170002) do
     t.index ["email"], name: "index_organizers_on_email", unique: true
   end
 
-  add_foreign_key "attendees", "events"
+  add_foreign_key "enrollments", "attendees"
+  add_foreign_key "enrollments", "events"
   add_foreign_key "events", "organizers"
 end

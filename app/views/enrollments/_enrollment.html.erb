@@ -1,0 +1,14 @@
+<li class="attendee-row">
+  <div>
+    <strong><%= enrollment.attendee.name %></strong>
+    <span class="meta"><%= enrollment.attendee.email %></span>
+    <% if local_assigns[:waitlist_position] %>
+      <span class="status-pill status-pill--waitlist">Waitlist #<%= waitlist_position %></span>
+    <% else %>
+      <span class="status-pill status-pill--confirmed">Confirmed</span>
+    <% end %>
+  </div>
+  <%= button_to "Remove", event_enrollment_path(event, enrollment), method: :delete,
+        class: "button button--ghost button--small",
+        data: { turbo_confirm: "Remove #{enrollment.attendee.name} from this event?" } %>
+</li>

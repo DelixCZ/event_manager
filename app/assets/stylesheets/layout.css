@@ -63,6 +63,10 @@
   margin-bottom: 0.35rem;
 }
 
+.eyebrow a {
+  color: inherit;
+}
+
 .back-link {
   margin-top: 1.5rem;
 }

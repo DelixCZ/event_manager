@@ -9,13 +9,18 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     get events_url
     assert_response :success
     assert_select "h1", "Events"
+    assert_select "header a", text: "New Event"
+    assert_select "header a", text: "Events", count: 0
+    assert_select "main .page-header a", text: "New Event", count: 0
   end
 
   test "should get show" do
     get event_url(@event)
     assert_response :success
     assert_select "h1", @event.title
-    assert_select "h2", /Attendees/
+    assert_select "header a", text: "Events"
+    assert_select "h2", /Confirmed/
+    assert_select "h2", /Waitlist/
     assert_select "form"
   end
 
@@ -69,9 +74,11 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy event" do
-    assert_difference("Attendee.count", -2) do
-      assert_difference("Event.count", -1) do
-        delete event_url(@event)
+    assert_no_difference("Attendee.count") do
+      assert_difference("Enrollment.count", -2) do
+        assert_difference("Event.count", -1) do
+          delete event_url(@event)
+        end
       end
     end
 
